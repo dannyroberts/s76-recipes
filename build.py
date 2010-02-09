@@ -1,5 +1,6 @@
 import os
 import commands
+import urllib
 
 def reformat_name(filename):
 	return filename[:-4].replace('_', ' ').title().replace("'S", "'s")
@@ -18,7 +19,7 @@ S76EYTBNCCO Recipes
 """
 
 recipe_header = """
-`\< back to recipes <recipes.html>`_
+`\< back to recipes <index.html>`_
 
 """
 
@@ -28,8 +29,10 @@ for filename in filenames:
 	with open('recipes/%s' % filename) as f:
 		recipe = f.read()
 	name = reformat_name(filename)
-	recipes.append((filename, "\n\n".join([
-		"`%s <%s.html>`_\n%s" % (name, filename[:-4], "="*(len(name)+len(filename)+7)),
+	section_header = "`%s <%s.html>`_" % (name, urllib.quote(filename[:-4], safe=''))
+	recipes.append((filename, "\n".join([
+		section_header,
+		"="*len(section_header),
 		recipe
 	])))
 
@@ -42,4 +45,4 @@ with open('recipes.txt', 'w') as master:
 			recipe_file.write(recipe)
 		commands.getoutput('rst2html.py "%s.txt" "%s.html" --stylesheet single.css' % ((filename[:-4],)*2))
 
-commands.getoutput("rst2html.py recipes.txt recipes.html --stylesheet master.css")
+commands.getoutput("rst2html.py recipes.txt index.html --stylesheet master.css")
