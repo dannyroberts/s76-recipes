@@ -1,0 +1,58 @@
+@media screen, print {
+  h1 {
+    text-align: center;
+    font: bold 18pt "Times New Roman";
+  }
+  
+  h2, h3 {
+    clear: both;
+    text-align: left;
+    font: bold 12pt "Times New Roman";
+    margin-top: 3em;
+  }
+  
+  .document > .section{
+    border: 1px dashed #DDD;
+    background-color: white;
+    padding: .25in;
+    margin: .5in 0in;
+  }
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+@media screen {
+  body {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    background-color: #EEE;
+  }
+
+  div.document {
+    width: 6.5in;
+    text-align: justify;
+    margin: 0px auto 0px auto;
+    border: 1px solid #DDD;
+    background-color: #FFF;
+    padding: 1in;
+  }
+}
+
+@media print {
+  body {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+  }
+
+  div.document {
+    width: 6.5in;
+    text-align: justify;
+    margin: 0px auto 0px auto;
+    text-align: justify;
+  }
+}
