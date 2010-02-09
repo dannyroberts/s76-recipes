@@ -6,14 +6,14 @@ def reformat_name(filename):
 	
 	
 filenames = [f for f in os.listdir('recipes') if f[-4:] == '.txt' and f[0] != '.']
-filenames.sort()
+filenames.sort(key=str.lower)
 
 header = """
 ===================
 S76EYTBNCCO Recipes
 ===================
 
-.. contents:: Table of Contents
+.. contents:: **Table of Contents**
     :depth: 1
 """
 
@@ -27,8 +27,6 @@ recipes = []
 for filename in filenames:
 	with open('recipes/%s' % filename) as f:
 		recipe = f.read()
-	#second_line = recipe.split('\n')[1]
-	#if len(second_line) < 2 or second_line[:2] != "==":
 	name = reformat_name(filename)
 	recipes.append((filename, "\n\n".join([
 		"`%s <%s.html>`_\n%s" % (name, filename[:-4], "="*(len(name)+len(filename)+7)),
