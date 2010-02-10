@@ -2,6 +2,8 @@ import os
 import commands
 import urllib
 
+build = 'build/'
+
 def reformat_name(filename):
 	return filename[:-4].replace('_', ' ').title().replace("'S", "'s")
 	
@@ -36,13 +38,15 @@ for filename in filenames:
 		recipe
 	])))
 
-with open('recipes.txt', 'w') as master:
+with open(build+'recipes.txt', 'w') as master:
 	master.write(header+"\n\n")
 	for filename, recipe in recipes:
 		master.write(recipe+"\n\n")
-		with open(filename, 'w') as recipe_file:
+		with open(build+filename, 'w') as recipe_file:
 			recipe_file.write(recipe_header)
 			recipe_file.write(recipe)
-		commands.getoutput('rst2html.py "%s.txt" "%s.html" --stylesheet single.css' % ((filename[:-4],)*2))
+		commands.getoutput('rst2html.py "%s.txt" "%s.html" --stylesheet single.css' % ((build+filename[:-4],)*2))
 
-commands.getoutput("rst2html.py recipes.txt index.html --stylesheet master.css")
+commands.getoutput("rst2html.py %srecipes.txt %sindex.html --stylesheet master.css" % ((build,)*2))
+commands.getoutput("rm %s*.txt" % build)
+
